@@ -1,0 +1,3 @@
+Írj egy library-t ami INI fájlokat ír-olvas.
+> INI file (string) => PHP tömb
+> PHP tömb => INI file (string)
