@@ -6,12 +6,10 @@ class DavidIniParser
     {
         try {
             if (file_exists("./files/" . $filename)) {
-                $ini_array = parse_ini_file($filename, true);
-                print_r($ini_array);
-                return 0;
+                $ini_array = parse_ini_file("./files/" . $filename, true);
+                return $ini_array;
             } else {
-                echo "\e[0;31mCan't find file: $filename\n###########\e[0m\n";
-                return 1;
+                return "\e[0;31mCan't find file: $filename\n###########\e[0m\n";
             }
         } catch (Exception $e) {
             $e->getMessage();
@@ -32,26 +30,30 @@ class DavidIniParser
                 $file = fopen("./files/" . $filename . ".ini", 'w');
             } elseif (strlen($filename) > 0) {
                 $status = "updated";
-                $file = fopen("./files/" . trim($filename) . ".ini", 'a');
+                $file = fopen("./files/" . trim($filename), 'a');
             }
             $keys_array = explode(',', $keys);
             $values_array = explode(',', $values);
 
-
+            if (strlen($section) <= 2) $section = "";
             $assoc_array = array();
             if (sizeof($keys_array) == sizeof($values_array)) {
-                fwrite($file, "[$section]\n");
+                if (!empty($section)) fwrite($file, "$section\n");
                 for ($i = 0; $i < sizeof($keys_array); $i++)
                     $assoc_array[trim($keys_array[$i])] = trim($values_array[$i]);
                 foreach ($assoc_array as $key => $value) {
                     fwrite($file, $key . "=" . $value . "\n");
                 }
-                echo "\e[0;32mFile \"$filename\" $status!\e[0m\n";
+
+                if (pathinfo($file["extension"]) != ".ini" && $status != "created")
+                    echo "\e[1;33mIncorrect file extension, please change manually\n###########\e[0m\n";
+                fclose($file);
+                return "\e[0;32m\nFile \"$filename\" $status!\e[0m\n";
             } else {
-                echo "\e[0;31mIncorrect array sizes!\n###########\e[0m\n";
+                return "\e[0;31mIncorrect array sizes!\n###########\e[0m\n";
             }
         } catch (Exception $e) {
-            echo "Caught exception: " . $e->getMessage();
+            return "Caught exception: " . $e->getMessage();
         }
     }
 
@@ -63,9 +65,9 @@ class DavidIniParser
     public function GetSectionKeysValues()
     {
         $section = trim(readline("Give section name: \n"));
-        $keys = readline("Keys separated by commas: key1, key2, key3\n");
-        $values = readline("Values separated by commas: value1, value2, value3\n");
-        $output = [[$section], [$keys], [$values]];
+        $keys = readline("Keys separated by commas: key1, key2, key3 ...\n");
+        $values = readline("Values separated by commas: value1, value2, value3 ...\n");
+        $output = [["[" . $section . "]"], [$keys], [$values]];
         return $output;
     }
 }
