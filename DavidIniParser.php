@@ -60,18 +60,25 @@ class DavidIniParser
 
     public function AssocArrayToIni(array $array, $filename)
     {
-        $file = "./files/" . $filename . ".ini";
-        $append = array();
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                $append["[$key]"] = "";
-                file_put_contents($file, "[" . $key . "]\n", FILE_APPEND);
-                $append = array_merge($append, $this->AssocArrayToIni($value, $filename));
-            } else {
-                file_put_contents($file, $key . "=" . $value . "\n", FILE_APPEND);
+        try {
+            if (!file_exists("./files")) {
+                mkdir("./files", 0777, true);
             }
+            $file = "./files/" . $filename . ".ini";
+            $append = array();
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    $append["[$key]"] = "";
+                    file_put_contents($file, "[" . $key . "]\n", FILE_APPEND);
+                    $append = array_merge($append, $this->AssocArrayToIni($value, $filename));
+                } else {
+                    file_put_contents($file, $key . "=" . $value . "\n", FILE_APPEND);
+                }
+            }
+            return $append;
+        }catch (Exception $exception) {
+            return "Exeption caught: " . $exception->getMessage();;
         }
-        return $append;
     }
 
     private function FileNameGenerator()
