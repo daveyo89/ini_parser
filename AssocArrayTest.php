@@ -18,14 +18,14 @@ if ($argv && $argv[0] && realpath($argv[0]) === __FILE__) {
                     "key2" => "value2",
                     "key3" => "value3",
                     "NestedSection" => [
-                        "nestedKey1"=> "nestedValue1",
-                        "nestedKey2"=> "nestedValue2",
+                        "nestedKey1" => "nestedValue1",
+                        "nestedKey2" => "nestedValue2",
                         "NestedSection2" => [
-                            "nestedKey3"=> "nestedValue1",
-                            "nestedKey4"=> "nestedValue2",
+                            "nestedKey3" => "nestedValue1",
+                            "nestedKey4" => "nestedValue2",
                             "NestedSection3" => [
-                                "deepNestedKey1"=> "deepNestedValue1",
-                                "deepNestedKey2"=> "deepNestedValue2",
+                                "deepNestedKey1" => "deepNestedValue1",
+                                "deepNestedKey2" => "deepNestedValue2",
                             ],
                         ],
                     ],
@@ -48,15 +48,11 @@ if ($argv && $argv[0] && realpath($argv[0]) === __FILE__) {
                     "S2key3" => "s2value6",
                 ],
             ];
-            $obj->AssocArrayToIni($testArray);
-            //$obj->AssocArrayToIni($testArray2);
-
-
+            $obj->AssocArrayToIni($testArray2, "test3");
+            $obj->AssocArrayToIni($testArray, "test4");
         }
     }
+
     $test = new DavidArrayHandler();
     $test->ArrayHandler();
-
-
-
 }

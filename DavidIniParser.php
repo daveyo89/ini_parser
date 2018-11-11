@@ -1,10 +1,8 @@
 <?php
 
 class DavidIniParser
-
 # TODO ArgParser, hogy optionnel is lehessen egyből inditani.
 {
-
     public function IniToArray($filename)
     {
         try {
@@ -60,17 +58,22 @@ class DavidIniParser
         }
     }
 
-    public function AssocArrayToIni(array $assocArray) {
-        $file = fopen("./files/" . "test" . ".ini", 'w');
-        $result = $this->array_flatten($assocArray);
-        foreach ($result as $item=>$value){
-            if (strlen($value)>1) {
-                fwrite($file, $item . "=" . $value . "\n");
+    public function AssocArrayToIni(array $array, $filename)
+    {
+        $file = "./files/" . $filename . ".ini";
+        $append = array();
+        $contents = file_get_contents($file);
+        foreach ($array as $key => $value) {
+
+                if (is_array($value)) {
+                $append["[$key]"] = "";
+                file_put_contents($file, "[" . $key . "]\n", FILE_APPEND);
+                $append = array_merge($append, $this->AssocArrayToIni($value, $filename));
             } else {
-                fwrite($file, $item . "\n");
+                file_put_contents($file, $key . "=" . $value . "\n", FILE_APPEND);
             }
         }
-        //print_r($assocArray);
+        return $append;
     }
 
     private function FileNameGenerator()
@@ -87,17 +90,4 @@ class DavidIniParser
         return $output;
     }
 
-    public function array_flatten($array) {
-        $return = array();
-        foreach ($array as $key => $value) {
-            if (is_array($value)) { $return["[$key]"] = "";}
-            if (is_array($value)) { $return = array_merge($return, $this->array_flatten($value));}
-            else {$return[$key] = $value;}
-        }
-        print_r($return);
-
-        return $return;
-
-    }
 }
-
