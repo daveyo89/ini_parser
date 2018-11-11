@@ -1,1 +1,21 @@
+A logikát a DavidIniParser.php tartalmazza. Itt vannak definiálva a szükséges funkciók.
 
+
+Funkciók:
+    I.
+        1, .ini file tömbbe olvasása és consolera olvasása.
+        2, Console használatával kulcs, érték párok írása .ini fileba.
+        3, Már létező file-hoz további elemek írása.
+    II.
+        1, N dimenziós tömbök .ini fileba írása.
+
+
+Funkciók elérése:
+    I. A CLI eléréséhez navigálj a projekt főkönyvtárába (DavidIniParser) és futtatsd a filet a
+        "php DavidCLI.php" paranccsal, majd kövesd az utasításokat.
+
+    II. Tömb fileba írásához a példát az AssocArrayTest.php fileban találod, ez futtatható a
+        "php AssocArrayTest.php" paranccsal.
+
+
+TODO: Argumentumok befogadására fejleszteni a CLI-t.

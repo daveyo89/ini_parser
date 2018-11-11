@@ -1,7 +1,7 @@
 <?php
 
 class DavidIniParser
-# TODO ArgParser, hogy optionnel is lehessen egyből inditani.
+
 {
     public function IniToArray($filename)
     {
@@ -62,10 +62,8 @@ class DavidIniParser
     {
         $file = "./files/" . $filename . ".ini";
         $append = array();
-        $contents = file_get_contents($file);
         foreach ($array as $key => $value) {
-
-                if (is_array($value)) {
+            if (is_array($value)) {
                 $append["[$key]"] = "";
                 file_put_contents($file, "[" . $key . "]\n", FILE_APPEND);
                 $append = array_merge($append, $this->AssocArrayToIni($value, $filename));
