@@ -1,7 +1,10 @@
 <?php
 
 class DavidIniParser
+
+# TODO ArgParser, hogy optionnel is lehessen egyből inditani.
 {
+
     public function IniToArray($filename)
     {
         try {
@@ -57,6 +60,19 @@ class DavidIniParser
         }
     }
 
+    public function AssocArrayToIni(array $assocArray) {
+        $file = fopen("./files/" . "test" . ".ini", 'w');
+        $result = $this->array_flatten($assocArray);
+        foreach ($result as $item=>$value){
+            if (strlen($value)>1) {
+                fwrite($file, $item . "=" . $value . "\n");
+            } else {
+                fwrite($file, $item . "\n");
+            }
+        }
+        //print_r($assocArray);
+    }
+
     private function FileNameGenerator()
     {
         return hash("crc32", rand(100, 999));
@@ -69,6 +85,19 @@ class DavidIniParser
         $values = readline("Values separated by commas: value1, value2, value3 ...\n");
         $output = [["[" . $section . "]"], [$keys], [$values]];
         return $output;
+    }
+
+    public function array_flatten($array) {
+        $return = array();
+        foreach ($array as $key => $value) {
+            if (is_array($value)) { $return["[$key]"] = "";}
+            if (is_array($value)) { $return = array_merge($return, $this->array_flatten($value));}
+            else {$return[$key] = $value;}
+        }
+        print_r($return);
+
+        return $return;
+
     }
 }
 

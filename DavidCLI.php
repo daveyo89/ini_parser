@@ -37,6 +37,7 @@ if ($argv && $argv[0] && realpath($argv[0]) === __FILE__) {
                 }
             }
         }
+
     }
 
     $interface = new DavidCLI();
