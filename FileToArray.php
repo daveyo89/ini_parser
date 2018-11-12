@@ -14,9 +14,8 @@ if ($argv && $argv[0] && realpath($argv[0]) === __FILE__) {
             return $obj->IniToArray($filename);
         }
     }
-
     $test = new DavidFileToArray();
-    $testArray = $test->FileToArray("test4.ini");
+    $testArray = $test->FileToArray(($i = getopt("f:")["f"]) ? $i : "test4.ini");
     print_r($testArray);
 
 }
