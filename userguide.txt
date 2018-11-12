@@ -6,6 +6,7 @@ Funkciók:
         1, .ini file tömbbe olvasása és consolera olvasása.
         2, Console használatával kulcs, érték párok írása .ini fileba.
         3, Már létező file-hoz további elemek írása.
+        4, File tömbbe olvasása, CLI nélkül.
     II.
         1, N dimenziós tömbök .ini fileba írása.
 
@@ -17,5 +18,7 @@ Funkciók elérése:
     II. Tömb fileba írásához a példát az AssocArrayTest.php fileban találod, ez futtatható a
         "php AssocArrayTest.php" paranccsal.
 
+    III. Ha saját .ini file-t akarunk beolvasni akkor célszerű azt előbb a /files mappába helyezni,
+        majd a "php FileToArray.php -f filename" parancsot használni.
 
 TODO: Argumentumok befogadására fejleszteni a CLI-t.

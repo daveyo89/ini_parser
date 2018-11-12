@@ -25,6 +25,8 @@ class DavidIniParser
                 mkdir("./files", 0777, true);
             }
             $file = "";
+            $status = "";
+
             if ($filename == "") {
                 $filename = $this->FileNameGenerator();
                 $status = "created";
@@ -77,7 +79,7 @@ class DavidIniParser
             }
             return $append;
         }catch (Exception $exception) {
-            return "Exeption caught: " . $exception->getMessage();;
+            return "Exception caught: " . $exception->getMessage();
         }
     }
 
