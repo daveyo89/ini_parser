@@ -22,6 +22,8 @@ class DavidIniParser
         try {
             if (!file_exists("./files")) {
                 mkdir("./files", 0777, true);
+            } else {
+                throw new Exception("Error while creating directory!");
             }
             $file = "";
             $status = "";
