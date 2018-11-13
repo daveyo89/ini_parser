@@ -10,12 +10,11 @@ class DavidIniParser
                 $ini_array = parse_ini_file("./files/" . $filename, true);
                 return $ini_array;
             } else {
-                return "\e[0;31mCan't find file: $filename\n###########\e[0m\n";
+                throw new Exception("\e[0;31mFile doesn't exist! ## $filename ##\e[0m\n");
             }
         } catch (Exception $e) {
-            $e->getMessage();
+            return $e->getMessage();
         }
-        return 1;
     }
 
     public function ArrayToIni($section, $keys, $values, $filename = "")
@@ -47,13 +46,14 @@ class DavidIniParser
                 foreach ($assoc_array as $key => $value) {
                     fwrite($file, $key . "=" . $value . "\n");
                 }
-
-                if (pathinfo($file["extension"]) != ".ini" && $status != "created")
-                    echo "\e[1;33mIncorrect file extension, please change manually\n###########\e[0m\n";
+                if (pathinfo($filename)["extension"] != "ini") {
+                    throw new Exception("\n\e[1;33mIncorrect filename or extension " .
+                        "please change manually.\n###########\e[0m\n");
+                }
                 fclose($file);
                 return "\e[0;32m\nFile \"$filename\" $status!\e[0m\n";
             } else {
-                return "\e[0;31mIncorrect array sizes!\n###########\e[0m\n";
+                throw new Exception("\n\e[0;31mIncorrect array sizes!\n###########\e[0m\n");
             }
         } catch (Exception $e) {
             return "Caught exception: " . $e->getMessage();
@@ -65,6 +65,8 @@ class DavidIniParser
         try {
             if (!file_exists("./files")) {
                 mkdir("./files", 0777, true);
+            } else {
+                throw new Exception("Error while creating directory!");
             }
             $file = "./files/" . $filename . ".ini";
             $append = array();
@@ -78,8 +80,8 @@ class DavidIniParser
                 }
             }
             return $append;
-        }catch (Exception $exception) {
-            return "Exception caught: " . $exception->getMessage();
+        }catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
