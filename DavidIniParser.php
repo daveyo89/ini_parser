@@ -67,10 +67,12 @@ class DavidIniParser
         try {
             if (!file_exists("./files")) {
                 mkdir("./files", 0777, true);
+                chmod("./files/", 0777);
             } else {
                 throw new Exception("Error while creating directory!");
             }
             $file = "./files/" . $filename . ".ini";
+            chmod($file, 0777);
             $append = array();
             foreach ($array as $key => $value) {
                 if (is_array($value)) {

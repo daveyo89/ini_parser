@@ -3,9 +3,29 @@ A logikát a DavidIniParser.php tartalmazza. Itt vannak definiálva a szüksége
 
 Funkciók:
     I.
-        1, .ini file tömbbe olvasása és consolera olvasása.
-        2, Console használatával kulcs, érték párok írása .ini fileba.
-        3, Már létező file-hoz további elemek írása.
+        1, IniToArray(filename),
+            a megadott .ini file-t a /files mappában keresi alapértelmezetten.
+            Tömböt ad vissza. Használható a DavidCLI.php és a FileToArray.php fileokkal is.
+            A DavidCLI.php segítségével az 1. menüpontot kell követni.
+            A FileToArray.php -f opcióval tudjuk a megadott file-t tömbbe kérni,
+                alapértelmezetten a test4.ini-t keresi jelenleg.
+                (Amit egyenlőre a
+
+        2, ArrayToIni(szekció, kulcsok, értékek, filenév),
+            A CLI-ben interaktivan adhatjuk be menupontok segítségével, hogy milyen adatokat akarunk
+            felvenni. A szekció egy szót kaphat (TODO);
+            A kulcsokat vesszővel elválasztva adjuk meg, majd az értékeket is.
+                Fontos, hogy egyenlő számú kulcs-érték párunk legyen.
+            A filenév alapértelmezetten üres string, ha kitöltetlenül marad,
+                random file-nevet generálunk.
+            Ha a filenév már létező file-ra mutat, akkor az .ini file végéhez toldhatjuk az új
+                adatokat.
+
+        3, AssocArrayToIni(array Tömb, filenév),
+            A tömb paramétert fileba írja felhasználói interakció nélkül.
+            A filenév egyenlőre kötelező és előre meghatározott. TODO;
+            A példányosítás az AssocArrayToFile.php fileban kerül bemutatásra.
+
         4, File tömbbe olvasása, CLI nélkül.
     II.
         1, N dimenziós tömbök .ini fileba írása.
